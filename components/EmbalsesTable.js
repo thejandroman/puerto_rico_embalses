@@ -15,6 +15,7 @@ const EmbalseRow = props => (
     </td>
     <td>{new Date(props.embalse.values[0].dateTime).toString()}</td>
     <td>{deCamelCase(props.embalse.currentAlert)}</td>
+    <td>{props.embalse.values[0].value}</td>
   </tr>
 )
 
@@ -25,6 +26,7 @@ const EmbalsesTable = props => (
         <th scope='col'>Embalse</th>
         <th scope='col'>Last Updated</th>
         <th scope='col'>Current Alert</th>
+        <th scope='col'>Current Level (meters)</th>
       </tr>
     </thead>
     <tbody>

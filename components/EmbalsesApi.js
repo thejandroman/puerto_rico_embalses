@@ -64,7 +64,8 @@ class EmbalsesApi {
         siteName: reservoir.sourceInfo.siteName,
         geoLocation: this.geoLocation(reservoir),
         values: this.values(reservoir),
-        currentAlert: this.currentAlert(id, reservoir)
+        currentAlert: this.currentAlert(id, reservoir),
+        alertLevels: embalse.nivelesDeAlerta
       }
     })
   }

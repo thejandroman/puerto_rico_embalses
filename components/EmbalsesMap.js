@@ -87,7 +87,8 @@ const PopupMarker = (props) => {
         <Link as={`/e/${props.embalse.id}`} href={`/embalse?id=${props.embalse.id}`}>
           <a>{props.embalse.commonName}</a>
         </Link>
-        <p>{props.embalse.currentAlert}</p>
+        <p>Current Alert: {props.embalse.currentAlert}
+          <br />Current Level: {props.embalse.values[0].value} meters</p>
       </Popup>
     </Marker>
   )
