@@ -67,17 +67,24 @@ class Niveles extends Component {
 
   processOptions (embalses) {
     return {
+      plugins: {
+        datalabels: {
+          clamp: true,
+          anchor: 'start',
+          align: 'top'
+        }
+      },
       legend: { display: false },
       scales: {
         yAxes: embalses.map(embalse => {
-          const max = ((embalse.alertLevels.seguridad / 5) * 6)
+          const max = embalse.alertLevels.seguridad + (embalse.alertLevels.seguridad - embalse.alertLevels.observacion)
           return {
             id: embalse.id,
             stacked: true,
             display: false,
             type: 'linear',
             ticks: {
-              min: 0,
+              min: embalse.alertLevels.control,
               max: max
             }
           }
