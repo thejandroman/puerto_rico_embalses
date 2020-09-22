@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { icon } from 'leaflet'
 import Link from 'next/link'
 import Head from 'next/head'
-import '../styles/EmbalsesMap.css'
+import styles from './EmbalsesMap.module.css'
 
 const state = {
   lat: 18.2256014,
