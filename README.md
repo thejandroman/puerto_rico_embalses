@@ -54,6 +54,9 @@ npm run dev
 | `npm start` | Start production server |
 | `npm run lint` | Run ESLint checks |
 | `npm run lint:fix` | Run ESLint with auto-fix |
+| `npm test` | Run tests |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Run tests with coverage report |
 
 ## Project Structure
 

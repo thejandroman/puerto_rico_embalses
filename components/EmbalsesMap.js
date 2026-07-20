@@ -2,8 +2,6 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { Fragment } from 'react'
 import { icon } from 'leaflet'
 import Link from 'next/link'
-import Head from 'next/head'
-import styles from './EmbalsesMap.module.css'
 import 'leaflet/dist/leaflet.css'
 
 const state = {
@@ -57,7 +55,7 @@ const greyIcon = icon({
 })
 
 const PopupMarker = (props) => {
-  var myIcon
+  let myIcon
 
   switch (props.embalse.currentAlert) {
   case 'desborde':
