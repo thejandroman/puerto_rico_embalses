@@ -1,7 +1,9 @@
 import Layout from '../components/MyLayout.js'
 
-export default () => (
+const About = () => (
   <Layout>
     <p>This is the about page</p>
   </Layout>
 )
+
+export default About

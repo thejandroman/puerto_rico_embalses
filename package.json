@@ -19,6 +19,14 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.6",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.35"
   }
 }
