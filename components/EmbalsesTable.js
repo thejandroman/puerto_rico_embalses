@@ -9,8 +9,8 @@ function deCamelCase(camelCase) {
 const EmbalseRow = props => (
   <tr>
     <td>
-      <Link as={`/e/${props.embalse.id}`} href={`/embalse?id=${props.embalse.id}`}>
-        <a>{props.embalse.commonName}</a>
+      <Link href={`/embalse?id=${props.embalse.id}`}>
+        {props.embalse.commonName}
       </Link>
     </td>
     <td>{new Date(props.embalse.values[0].dateTime).toString()}</td>

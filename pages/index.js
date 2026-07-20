@@ -2,11 +2,9 @@ import Layout from '../components/MyLayout.js'
 import EmbalsesApi from '../components/EmbalsesApi.js'
 import EmbalsesTable from '../components/EmbalsesTable.js'
 import Niveles from '../components/Niveles.js'
-import Link from 'next/link'
-import fetch from 'isomorphic-unfetch'
 import dynamic from 'next/dynamic'
 
-const EmbalsesMap = dynamic(import('../components/EmbalsesMap.js'), {ssr: false})
+const EmbalsesMap = dynamic(() => import('../components/EmbalsesMap.js'), {ssr: false})
 
 const Index = (props) => (
   <Layout>

@@ -1,9 +1,10 @@
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { Fragment } from 'react'
 import { icon } from 'leaflet'
 import Link from 'next/link'
 import Head from 'next/head'
 import styles from './EmbalsesMap.module.css'
+import 'leaflet/dist/leaflet.css'
 
 const state = {
   lat: 18.2256014,
@@ -84,8 +85,8 @@ const PopupMarker = (props) => {
   return (
     <Marker position={props.embalse.geoLocation} icon={myIcon}>
       <Popup>
-        <Link as={`/e/${props.embalse.id}`} href={`/embalse?id=${props.embalse.id}`}>
-          <a>{props.embalse.commonName}</a>
+        <Link href={`/embalse?id=${props.embalse.id}`}>
+          {props.embalse.commonName}
         </Link>
         <p>Current Alert: {props.embalse.currentAlert}
           <br />Current Level: {props.embalse.values[0].value} meters</p>
@@ -102,18 +103,13 @@ const MarkersList = (props) => {
 }
 
 const EmbalsesMap = (props) => (
-  <Map center={position} zoom={state.zoom}>
-    <Head>
-      <link rel='stylesheet' href='https://unpkg.com/leaflet@1.4.0/dist/leaflet.css'
-            integrity='sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=='
-            crossorigin='' />
-    </Head>
+  <MapContainer center={position} zoom={state.zoom} style={{ height: '400px', width: '100%' }}>
     <TileLayer
       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+      url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
       />
     <MarkersList markers={props.embalses} />
-  </Map>
+  </MapContainer>
 )
 
 export default EmbalsesMap
