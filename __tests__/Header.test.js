@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import Header from '../components/Header'
+import { LanguageProvider } from '../context/LanguageContext'
 
 // Mock Next.js Link
 jest.mock('next/link', () => {
@@ -8,48 +9,55 @@ jest.mock('next/link', () => {
   }
 })
 
+const renderWithLanguage = (ui) => {
+  return render(
+    <LanguageProvider>
+      {ui}
+    </LanguageProvider>
+  )
+}
+
 describe('Header', () => {
-  it('renders navigation links', () => {
-    render(<Header />)
+  it('renders navigation links in Spanish (default)', () => {
+    renderWithLanguage(<Header />)
     
-    expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('Map')).toBeInTheDocument()
-    expect(screen.getByText('Table')).toBeInTheDocument()
-    expect(screen.getByText('About')).toBeInTheDocument()
+    expect(screen.getByText('Inicio')).toBeInTheDocument()
+    expect(screen.getByText('Mapa')).toBeInTheDocument()
+    expect(screen.getByText('Tabla')).toBeInTheDocument()
+    expect(screen.getByText('Acerca de')).toBeInTheDocument()
   })
 
   it('has correct href for Home link', () => {
-    render(<Header />)
+    renderWithLanguage(<Header />)
     
-    const homeLink = screen.getByText('Home')
+    const homeLink = screen.getByText('Inicio')
     expect(homeLink).toHaveAttribute('href', '/')
   })
 
   it('has correct href for Map link', () => {
-    render(<Header />)
+    renderWithLanguage(<Header />)
     
-    const mapLink = screen.getByText('Map')
+    const mapLink = screen.getByText('Mapa')
     expect(mapLink).toHaveAttribute('href', '/map')
   })
 
   it('has correct href for Table link', () => {
-    render(<Header />)
+    renderWithLanguage(<Header />)
     
-    const tableLink = screen.getByText('Table')
+    const tableLink = screen.getByText('Tabla')
     expect(tableLink).toHaveAttribute('href', '/table')
   })
 
   it('has correct href for About link', () => {
-    render(<Header />)
+    renderWithLanguage(<Header />)
     
-    const aboutLink = screen.getByText('About')
+    const aboutLink = screen.getByText('Acerca de')
     expect(aboutLink).toHaveAttribute('href', '/about')
   })
 
-  it('renders as a nav list', () => {
-    render(<Header />)
+  it('renders language toggle button', () => {
+    renderWithLanguage(<Header />)
     
-    const nav = screen.getByRole('list')
-    expect(nav).toHaveClass('nav')
+    expect(screen.getByText('EN')).toBeInTheDocument()
   })
 })

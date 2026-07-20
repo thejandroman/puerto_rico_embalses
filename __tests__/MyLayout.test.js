@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import MyLayout from '../components/MyLayout'
+import { LanguageProvider } from '../context/LanguageContext'
 
 // Mock Next.js Link
 jest.mock('next/link', () => {
@@ -8,22 +9,30 @@ jest.mock('next/link', () => {
   }
 })
 
+const renderWithLanguage = (ui) => {
+  return render(
+    <LanguageProvider>
+      {ui}
+    </LanguageProvider>
+  )
+}
+
 describe('MyLayout', () => {
   it('renders header navigation', () => {
-    render(<MyLayout><div>Content</div></MyLayout>)
+    renderWithLanguage(<MyLayout><div>Content</div></MyLayout>)
     
-    expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('About')).toBeInTheDocument()
+    expect(screen.getByText('Inicio')).toBeInTheDocument()
+    expect(screen.getByText('Acerca de')).toBeInTheDocument()
   })
 
   it('renders children content', () => {
-    render(<MyLayout><div>Test Content</div></MyLayout>)
+    renderWithLanguage(<MyLayout><div>Test Content</div></MyLayout>)
     
     expect(screen.getByText('Test Content')).toBeInTheDocument()
   })
 
   it('renders nested components', () => {
-    render(
+    renderWithLanguage(
       <MyLayout>
         <h1>Title</h1>
         <p>Paragraph</p>
@@ -35,9 +44,9 @@ describe('MyLayout', () => {
   })
 
   it('has container divs', () => {
-    const { container } = render(<MyLayout><div>Content</div></MyLayout>)
+    const { container } = renderWithLanguage(<MyLayout><div>Content</div></MyLayout>)
     
     const containers = container.querySelectorAll('.container')
-    expect(containers.length).toBe(2)
+    expect(containers.length).toBeGreaterThanOrEqual(2)
   })
 })

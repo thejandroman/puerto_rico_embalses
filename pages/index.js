@@ -1,17 +1,22 @@
 import Layout from '../components/MyLayout.js'
 import EmbalsesApi from '../components/EmbalsesApi.js'
 import Niveles from '../components/Niveles.js'
+import { useLanguage } from '../context/LanguageContext'
 
-const Index = (props) => (
-  <Layout>
-    <h1>Puerto Rico Reservoir Levels</h1>
-    <div className='row'>
-      <div className='col'>
-        <Niveles embalses={props.embalses} />
+const Index = (props) => {
+  const { t } = useLanguage()
+
+  return (
+    <Layout>
+      <h1>{t('home.title')}</h1>
+      <div className='row'>
+        <div className='col'>
+          <Niveles embalses={props.embalses} />
+        </div>
       </div>
-    </div>
-  </Layout>
-)
+    </Layout>
+  )
+}
 
 Index.getInitialProps = async function () {
   const myEmbalses = new EmbalsesApi()
