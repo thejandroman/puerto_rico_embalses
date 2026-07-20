@@ -2,12 +2,12 @@ import Layout from '../components/MyLayout.js'
 import { useLanguage } from '../context/LanguageContext'
 
 const alertColors = [
-  { key: 'desborde', color: '#9500D3', bgColor: 'rgba(149, 0, 211, 0.2)' },
-  { key: 'seguridad', color: '#208B22', bgColor: 'rgba(32, 139, 34, 0.2)' },
-  { key: 'observacion', color: '#4269E1', bgColor: 'rgba(66, 105, 225, 0.2)' },
-  { key: 'ajustesOperacionales', color: '#FFFF04', bgColor: 'rgba(255, 255, 4, 0.2)' },
-  { key: 'control', color: '#FFA502', bgColor: 'rgba(255, 165, 2, 0.2)' },
-  { key: 'fueraDeServicio', color: '#C00100', bgColor: 'rgba(192, 1, 0, 0.2)' },
+  { key: 'desborde', color: '#9500D3', bgColor: 'rgba(149, 0, 211, 0.2)', colorName: 'purple' },
+  { key: 'seguridad', color: '#208B22', bgColor: 'rgba(32, 139, 34, 0.2)', colorName: 'green' },
+  { key: 'observacion', color: '#4269E1', bgColor: 'rgba(66, 105, 225, 0.2)', colorName: 'blue' },
+  { key: 'ajustesOperacionales', color: '#FFFF04', bgColor: 'rgba(255, 255, 4, 0.2)', colorName: 'yellow' },
+  { key: 'control', color: '#FFA502', bgColor: 'rgba(255, 165, 2, 0.2)', colorName: 'orange' },
+  { key: 'fueraDeServicio', color: '#C00100', bgColor: 'rgba(192, 1, 0, 0.2)', colorName: 'red' },
 ]
 
 const About = () => {
@@ -25,13 +25,12 @@ const About = () => {
         <table className='table table-bordered'>
           <thead>
             <tr>
-              <th style={{ width: '150px' }}>{t('about.color')}</th>
+              <th>{t('about.color')}</th>
               <th>{t('about.alertLevel')}</th>
-              <th>{t('about.description')}</th>
             </tr>
           </thead>
           <tbody>
-            {alertColors.map(({ key, color, bgColor }) => (
+            {alertColors.map(({ key, color, bgColor, colorName }) => (
               <tr key={key}>
                 <td>
                   <span 
@@ -48,10 +47,9 @@ const About = () => {
                       marginRight: '8px'
                     }}
                   />
-                  <code>{color}</code>
+                  {t(`colors.${colorName}`)}
                 </td>
                 <td>{t(`alerts.${key}`)}</td>
-                <td>{t(`alertDescriptions.${key}`)}</td>
               </tr>
             ))}
           </tbody>

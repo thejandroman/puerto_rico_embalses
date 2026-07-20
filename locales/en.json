@@ -28,6 +28,14 @@
     "color": "Color",
     "alertLevel": "Alert Level"
   },
+  "colors": {
+    "purple": "Purple",
+    "green": "Green",
+    "blue": "Blue",
+    "yellow": "Yellow",
+    "orange": "Orange",
+    "red": "Red"
+  },
   "alerts": {
     "desborde": "Overflow",
     "seguridad": "Safety",
@@ -35,13 +43,5 @@
     "ajustesOperacionales": "Operational Adjustments",
     "control": "Control",
     "fueraDeServicio": "Out of Service"
-  },
-  "alertDescriptions": {
-    "desborde": "Reservoir level is above the overflow level. Risk of flooding.",
-    "seguridad": "Level is within the operational safety range.",
-    "observacion": "Level requires continuous observation.",
-    "ajustesOperacionales": "Adjustments to reservoir operations are required.",
-    "control": "Level is under control within normal parameters.",
-    "fueraDeServicio": "Reservoir is out of service or no data available."
   }
 }

@@ -28,6 +28,14 @@
     "color": "Color",
     "alertLevel": "Nivel de Alerta"
   },
+  "colors": {
+    "purple": "Morado",
+    "green": "Verde",
+    "blue": "Azul",
+    "yellow": "Amarillo",
+    "orange": "Naranja",
+    "red": "Rojo"
+  },
   "alerts": {
     "desborde": "Desborde",
     "seguridad": "Seguridad",
@@ -35,13 +43,5 @@
     "ajustesOperacionales": "Ajustes Operacionales",
     "control": "Control",
     "fueraDeServicio": "Fuera de Servicio"
-  },
-  "alertDescriptions": {
-    "desborde": "El nivel del embalse está por encima del nivel de desborde. Riesgo de inundación.",
-    "seguridad": "El nivel está en el rango de seguridad operacional.",
-    "observacion": "El nivel requiere observación continua.",
-    "ajustesOperacionales": "Se requieren ajustes en las operaciones del embalse.",
-    "control": "El nivel está bajo control dentro de los parámetros normales.",
-    "fueraDeServicio": "El embalse está fuera de servicio o sin datos disponibles."
   }
 }
