@@ -52,6 +52,8 @@ npm run dev
 | `npm run dev` | Start development server |
 | `npm run build` | Create production build |
 | `npm start` | Start production server |
+| `npm run lint` | Run ESLint checks |
+| `npm run lint:fix` | Run ESLint with auto-fix |
 
 ## Project Structure
 
