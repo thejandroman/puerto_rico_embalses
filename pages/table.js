@@ -1,19 +1,15 @@
 import Layout from '../components/MyLayout.js'
 import EmbalsesApi from '../components/EmbalsesApi.js'
-import Niveles from '../components/Niveles.js'
+import EmbalsesTable from '../components/EmbalsesTable.js'
 
-const Index = (props) => (
+const TablePage = (props) => (
   <Layout>
-    <h1>Puerto Rico Reservoir Levels</h1>
-    <div className='row'>
-      <div className='col'>
-        <Niveles embalses={props.embalses} />
-      </div>
-    </div>
+    <h1>Reservoir Data</h1>
+    <EmbalsesTable embalses={props.embalses} />
   </Layout>
 )
 
-Index.getInitialProps = async function () {
+TablePage.getInitialProps = async function () {
   const myEmbalses = new EmbalsesApi()
   const sites = myEmbalses.ids.join(',')
 
@@ -33,4 +29,4 @@ Index.getInitialProps = async function () {
   }
 }
 
-export default Index
+export default TablePage

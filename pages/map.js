@@ -1,19 +1,17 @@
 import Layout from '../components/MyLayout.js'
 import EmbalsesApi from '../components/EmbalsesApi.js'
-import Niveles from '../components/Niveles.js'
+import dynamic from 'next/dynamic'
 
-const Index = (props) => (
+const EmbalsesMap = dynamic(() => import('../components/EmbalsesMap.js'), {ssr: false})
+
+const MapPage = (props) => (
   <Layout>
-    <h1>Puerto Rico Reservoir Levels</h1>
-    <div className='row'>
-      <div className='col'>
-        <Niveles embalses={props.embalses} />
-      </div>
-    </div>
+    <h1>Reservoir Map</h1>
+    <EmbalsesMap embalses={props.embalses} />
   </Layout>
 )
 
-Index.getInitialProps = async function () {
+MapPage.getInitialProps = async function () {
   const myEmbalses = new EmbalsesApi()
   const sites = myEmbalses.ids.join(',')
 
@@ -33,4 +31,4 @@ Index.getInitialProps = async function () {
   }
 }
 
-export default Index
+export default MapPage
