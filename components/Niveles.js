@@ -84,7 +84,7 @@ class Niveles extends Component {
     return colors
   }
 
-  processOptions (embalses) {
+  processOptions (_embalses) {
     return {
       plugins: {
         datalabels: {
