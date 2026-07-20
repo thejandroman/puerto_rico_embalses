@@ -22,7 +22,11 @@
   },
   "about": {
     "title": "About",
-    "description": "A real-time dashboard for monitoring water reservoir levels across Puerto Rico, using data from the USGS Water Services API."
+    "description": "A real-time dashboard for monitoring water reservoir levels across Puerto Rico, using data from the USGS Water Services API.",
+    "colorLegend": "Color Legend",
+    "colorLegendDescription": "Colors on the map and table indicate the current alert level of each reservoir:",
+    "color": "Color",
+    "alertLevel": "Alert Level"
   },
   "alerts": {
     "desborde": "Overflow",
@@ -31,5 +35,13 @@
     "ajustesOperacionales": "Operational Adjustments",
     "control": "Control",
     "fueraDeServicio": "Out of Service"
+  },
+  "alertDescriptions": {
+    "desborde": "Reservoir level is above the overflow level. Risk of flooding.",
+    "seguridad": "Level is within the operational safety range.",
+    "observacion": "Level requires continuous observation.",
+    "ajustesOperacionales": "Adjustments to reservoir operations are required.",
+    "control": "Level is under control within normal parameters.",
+    "fueraDeServicio": "Reservoir is out of service or no data available."
   }
 }

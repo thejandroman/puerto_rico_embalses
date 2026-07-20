@@ -22,7 +22,11 @@
   },
   "about": {
     "title": "Acerca de",
-    "description": "Un panel de control en tiempo real para monitorear los niveles de agua de los embalses en Puerto Rico, utilizando datos de la API de Servicios de Agua de USGS."
+    "description": "Un panel de control en tiempo real para monitorear los niveles de agua de los embalses en Puerto Rico, utilizando datos de la API de Servicios de Agua de USGS.",
+    "colorLegend": "Leyenda de Colores",
+    "colorLegendDescription": "Los colores en el mapa y la tabla indican el nivel de alerta actual de cada embalse:",
+    "color": "Color",
+    "alertLevel": "Nivel de Alerta"
   },
   "alerts": {
     "desborde": "Desborde",
@@ -31,5 +35,13 @@
     "ajustesOperacionales": "Ajustes Operacionales",
     "control": "Control",
     "fueraDeServicio": "Fuera de Servicio"
+  },
+  "alertDescriptions": {
+    "desborde": "El nivel del embalse está por encima del nivel de desborde. Riesgo de inundación.",
+    "seguridad": "El nivel está en el rango de seguridad operacional.",
+    "observacion": "El nivel requiere observación continua.",
+    "ajustesOperacionales": "Se requieren ajustes en las operaciones del embalse.",
+    "control": "El nivel está bajo control dentro de los parámetros normales.",
+    "fueraDeServicio": "El embalse está fuera de servicio o sin datos disponibles."
   }
 }
