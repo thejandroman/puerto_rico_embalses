@@ -12,10 +12,21 @@ Embalse.getInitialProps = async function (req) {
   const { id } = req.query
   const myEmbalses = new EmbalsesApi()
 
-  const res = await fetch(`https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&period=P30D&parameterCd=62616&siteStatus=all`, {mode: 'cors'})
-  const data = await res.json()
-
-  return myEmbalses.processUsgsEmbalses(data)[0]
+  try {
+    const res = await fetch(`https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${id}&period=P30D&parameterCd=72376&siteStatus=all`, {mode: 'cors'})
+    
+    if (!res.ok) {
+      console.error('USGS API error:', res.status, res.statusText)
+      return { commonName: 'Unknown', siteName: 'Data unavailable' }
+    }
+    
+    const data = await res.json()
+    const embalses = myEmbalses.processUsgsEmbalses(data)
+    return embalses[0] || { commonName: 'Unknown', siteName: 'Data unavailable' }
+  } catch (error) {
+    console.error('Failed to fetch USGS data:', error.message)
+    return { commonName: 'Unknown', siteName: 'Data unavailable' }
+  }
 }
 
 export default Embalse
