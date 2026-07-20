@@ -26,11 +26,19 @@ Index.getInitialProps = async function () {
   const myEmbalses = new EmbalsesApi()
   const sites = myEmbalses.ids.join(',')
 
-  const res = await fetch(`https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${sites}&parameterCd=62616&siteStatus=all`, {mode: 'cors'})
-  const data = await res.json()
-
-  return {
-    embalses: myEmbalses.processUsgsEmbalses(data)
+  try {
+    const res = await fetch(`https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${sites}&parameterCd=72376&siteStatus=all`, {mode: 'cors'})
+    
+    if (!res.ok) {
+      console.error('USGS API error:', res.status, res.statusText)
+      return { embalses: [] }
+    }
+    
+    const data = await res.json()
+    return { embalses: myEmbalses.processUsgsEmbalses(data) }
+  } catch (error) {
+    console.error('Failed to fetch USGS data:', error.message)
+    return { embalses: [] }
   }
 }
 
