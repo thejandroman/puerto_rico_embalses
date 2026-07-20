@@ -3,14 +3,10 @@ import Link from 'next/link'
 const Header = () => (
   <ul className='nav'>
     <li className='nav-item'>
-      <Link href='/'>
-        <a className='nav-link' href='/'>Home</a>
-      </Link>
+      <Link href='/' className='nav-link'>Home</Link>
     </li>
     <li className='nav-item'>
-      <Link href='/about'>
-        <a className='nav-link'>About</a>
-      </Link>
+      <Link href='/about' className='nav-link'>About</Link>
     </li>
   </ul>
 )

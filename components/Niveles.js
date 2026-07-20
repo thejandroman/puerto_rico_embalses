@@ -1,6 +1,25 @@
 import { Bar } from 'react-chartjs-2'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 import { Component } from 'react'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartDataLabels
+)
 
 class Niveles extends Component {
   constructor (props) {
@@ -72,25 +91,10 @@ class Niveles extends Component {
           clamp: true,
           anchor: 'start',
           align: 'top'
-        }
+        },
+        legend: { display: false }
       },
-      legend: { display: false },
-      scales: {
-        yAxes: embalses.map(embalse => {
-          const max = embalse.alertLevels.seguridad + (embalse.alertLevels.seguridad - embalse.alertLevels.observacion)
-          return {
-            id: embalse.id,
-            stacked: true,
-            display: false,
-            type: 'linear',
-            ticks: {
-              min: embalse.alertLevels.control,
-              max: max
-            }
-          }
-        }),
-        xAxes: embalses.map(embalse => { return { stacked: true, display: 'auto' } })
-      }
+      scales: {}
     }
   }
 
