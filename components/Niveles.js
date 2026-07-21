@@ -92,7 +92,7 @@ class Niveles extends Component {
             label: (context) => {
               const embalse = embalses[context.dataIndex]
               const currentValue = parseFloat(embalse.values[0].value)
-              return `${currentValue} m (${context.raw}% de desborde)`
+              return `${currentValue} m`
             },
             afterLabel: (context) => {
               const embalse = embalses[context.dataIndex]
