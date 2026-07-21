@@ -24,12 +24,12 @@ Index.getInitialProps = async function () {
 
   try {
     const res = await fetch(`https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${sites}&parameterCd=72376&siteStatus=all`, {mode: 'cors'})
-    
+
     if (!res.ok) {
       console.error('USGS API error:', res.status, res.statusText)
       return { embalses: [] }
     }
-    
+
     const data = await res.json()
     return { embalses: myEmbalses.processUsgsEmbalses(data) }
   } catch (error) {

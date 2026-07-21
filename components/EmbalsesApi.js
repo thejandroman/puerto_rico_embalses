@@ -11,7 +11,7 @@ class EmbalsesApi {
       {id: 50026140, commonName: 'Caonillas', nivelesDeAlerta: {desborde: 252, seguridad: 248, observacion: 244, ajustesOperacionales: 242, control: 235, fueraDeServicio: 0}},
       {id: 50071225, commonName: 'Fajardo', nivelesDeAlerta: {desborde: 52.5, seguridad: 48.3, observacion: 44.5, ajustesOperacionales: 40.5, control: 36, fueraDeServicio: 0}},
       {id: 50010800, commonName: 'Guajataca', nivelesDeAlerta: {desborde: 196.9, seguridad: 194, observacion: 190, ajustesOperacionales: 186, control: 184, fueraDeServicio: 0}},
-      {id: 50125780, commonName: 'Cerrillos', nivelesDeAlerta: {desborde: 175, seguridad: 160, observacion: 155.5, ajustesOperacionales: 149.4, control: 137.2, fueraDeServicio: 0}}
+      {id: 50113950, commonName: 'Cerrillos', nivelesDeAlerta: {desborde: 175, seguridad: 160, observacion: 155.5, ajustesOperacionales: 149.4, control: 137.2, fueraDeServicio: 0}}
     ]
   }
 
