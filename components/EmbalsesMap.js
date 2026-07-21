@@ -1,4 +1,4 @@
-import { MapContainer, Marker, Popup, TileLayer, Circle } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, Polygon } from 'react-leaflet'
 import { Fragment, useState, useEffect } from 'react'
 import { icon } from 'leaflet'
 import Link from 'next/link'
@@ -59,18 +59,18 @@ function MunicipalityHighlight({ selectedEmbalse, municipios }) {
   if (!selectedEmbalse || !municipios) return null
   
   const matchingMunicipios = municipios.features.filter(f => 
-    selectedEmbalse.municipalities.includes(f.properties.NAME)
+    selectedEmbalse.municipalities.includes(f.properties.name)
   )
   
   return (
     <Fragment>
       {matchingMunicipios.map((m, i) => {
-        if (m.geometry.type === 'Point') {
+        if (m.geometry.type === 'Polygon') {
+          const positions = m.geometry.coordinates[0].map(coord => [coord[1], coord[0]])
           return (
-            <Circle
+            <Polygon
               key={i}
-              center={[m.geometry.coordinates[1], m.geometry.coordinates[0]]}
-              radius={3000}
+              positions={positions}
               pathOptions={{
                 color: '#3388ff',
                 fillColor: '#3388ff',
