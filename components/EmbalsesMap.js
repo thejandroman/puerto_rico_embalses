@@ -1,4 +1,4 @@
-import { MapContainer, Marker, Popup, TileLayer, Circle, useMap } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, Circle } from 'react-leaflet'
 import { Fragment, useState, useEffect } from 'react'
 import { icon } from 'leaflet'
 import Link from 'next/link'
@@ -56,29 +56,6 @@ const greyIcon = icon({
 })
 
 function MunicipalityHighlight({ selectedEmbalse, municipios }) {
-  const map = useMap()
-  
-  useEffect(() => {
-    if (selectedEmbalse && municipios) {
-      const matchingMunicipios = municipios.features.filter(f => 
-        selectedEmbalse.municipalities.includes(f.properties.NAME)
-      )
-      
-      if (matchingMunicipios.length > 0) {
-        const bounds = []
-        matchingMunicipios.forEach(m => {
-          if (m.geometry.type === 'Point') {
-            bounds.push(m.geometry.coordinates)
-          }
-        })
-        
-        if (bounds.length > 0) {
-          map.fitBounds(bounds, { padding: [50, 50], maxZoom: 11 })
-        }
-      }
-    }
-  }, [selectedEmbalse, municipios, map])
-  
   if (!selectedEmbalse || !municipios) return null
   
   const matchingMunicipios = municipios.features.filter(f => 
