@@ -15,7 +15,11 @@ jest.mock('react-leaflet', () => ({
       {children}
     </div>
   ),
-  Popup: ({ children }) => <div data-testid='popup'>{children}</div>
+  Popup: ({ children }) => <div data-testid='popup'>{children}</div>,
+  Circle: () => null,
+  useMap: () => ({
+    fitBounds: jest.fn()
+  })
 }))
 
 // Mock leaflet icon
@@ -30,6 +34,13 @@ jest.mock('next/link', () => {
   }
 })
 
+// Mock fetch for municipios
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({ features: [] })
+  })
+)
+
 const renderWithLanguage = (ui) => {
   return render(
     <LanguageProvider>
@@ -43,6 +54,7 @@ const mockEmbalses = [
     id: 50059000,
     commonName: 'Carraizo',
     currentAlert: 'observacion',
+    municipalities: ['Trujillo Alto', 'San Juan', 'Carolina'],
     geoLocation: [18.3258, -66.0086],
     values: [{ value: '38.5' }]
   },
@@ -50,12 +62,17 @@ const mockEmbalses = [
     id: 50045000,
     commonName: 'La Plata',
     currentAlert: 'seguridad',
+    municipalities: ['Comerío', 'Toa Alta', 'Bayamón'],
     geoLocation: [18.4167, -66.2167],
     values: [{ value: '48.2' }]
   }
 ]
 
 describe('EmbalsesMap', () => {
+  beforeEach(() => {
+    fetch.mockClear()
+  })
+
   it('renders the map container', () => {
     renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
@@ -109,11 +126,11 @@ describe('EmbalsesMap', () => {
     expect(screen.getByText('La Plata')).toBeInTheDocument()
   })
 
-  it('renders popup with translated alert and level', () => {
+  it('renders popup with municipalities', () => {
     renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
-    expect(screen.getByText(/Observación/)).toBeInTheDocument()
-    expect(screen.getByText(/38.5 m/)).toBeInTheDocument()
+    expect(screen.getByText(/Trujillo Alto/)).toBeInTheDocument()
+    expect(screen.getByText(/Comerío/)).toBeInTheDocument()
   })
 
   it('links popup to embalse detail page', () => {

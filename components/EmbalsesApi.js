@@ -4,6 +4,7 @@ class EmbalsesApi {
       {
         id: 50059000,
         commonName: 'Carraizo',
+        municipalities: ['Trujillo Alto', 'San Juan', 'Carolina', 'Gurabo', 'Caguas'],
         nivelesDeAlerta: {
           desborde: 40.95,
           seguridad: 39.7,
@@ -16,6 +17,7 @@ class EmbalsesApi {
       {
         id: 50045000,
         commonName: 'La Plata',
+        municipalities: ['Comerío', 'Toa Alta', 'Bayamón', 'Guaynabo', 'San Juan'],
         nivelesDeAlerta: {
           desborde: 51.3,
           seguridad: 47.7,
@@ -28,6 +30,7 @@ class EmbalsesApi {
       {
         id: 50047550,
         commonName: 'Cidra',
+        municipalities: ['Cidra', 'Aibonito', 'Barranquitas', 'San Juan'],
         nivelesDeAlerta: {
           desborde: 403,
           seguridad: 401.71,
@@ -40,6 +43,7 @@ class EmbalsesApi {
       {
         id: 50093045,
         commonName: 'Patillas',
+        municipalities: ['Patillas', 'Arroyo', 'Guayama'],
         nivelesDeAlerta: {
           desborde: 66,
           seguridad: 62.18,
@@ -52,6 +56,7 @@ class EmbalsesApi {
       {
         id: 50111210,
         commonName: 'Toa Vaca',
+        municipalities: ['Villalba', 'Orocovis', 'Barros', 'Toa Alta'],
         nivelesDeAlerta: {
           desborde: 164,
           seguridad: 148,
@@ -64,6 +69,7 @@ class EmbalsesApi {
       {
         id: 50039995,
         commonName: 'Carite',
+        municipalities: ['Guayama', 'Arroyo', 'Salinas'],
         nivelesDeAlerta: {
           desborde: 542.94,
           seguridad: 541.16,
@@ -76,6 +82,7 @@ class EmbalsesApi {
       {
         id: 50076800,
         commonName: 'Rio Blanco',
+        municipalities: ['Naguabo', 'Humacao', 'Yabucoa', 'Las Piedras', 'Vieques', 'Culebra'],
         nivelesDeAlerta: {
           desborde: 28.75,
           seguridad: 26.5,
@@ -88,6 +95,7 @@ class EmbalsesApi {
       {
         id: 50026140,
         commonName: 'Caonillas',
+        municipalities: ['Utuado', 'Adjuntas', 'Lares'],
         nivelesDeAlerta: {
           desborde: 252,
           seguridad: 248,
@@ -100,6 +108,7 @@ class EmbalsesApi {
       {
         id: 50071225,
         commonName: 'Fajardo',
+        municipalities: ['Fajardo', 'Luquillo', 'Ceiba'],
         nivelesDeAlerta: {
           desborde: 52.5,
           seguridad: 48.3,
@@ -112,6 +121,7 @@ class EmbalsesApi {
       {
         id: 50010800,
         commonName: 'Guajataca',
+        municipalities: ['Isabela', 'Quebradillas', 'San Sebastián', 'Aguadilla', 'Moca', 'Rincón', 'Aguada', 'Lajas', 'Sabana Grande', 'Mayagüez'],
         nivelesDeAlerta: {
           desborde: 196.5,
           seguridad: 194,
@@ -124,6 +134,7 @@ class EmbalsesApi {
       {
         id: 50113950,
         commonName: 'Cerrillos',
+        municipalities: ['Ponce', 'Juana Díaz', 'Villalba', 'Orocovis'],
         nivelesDeAlerta: {
           desborde: 174.7,
           seguridad: 160.9,
@@ -183,6 +194,7 @@ class EmbalsesApi {
         id: id,
         commonName: embalse.commonName,
         siteName: reservoir.sourceInfo.siteName,
+        municipalities: embalse.municipalities,
         geoLocation: this.geoLocation(reservoir),
         values: this.values(reservoir),
         currentAlert: this.currentAlert(id, reservoir),

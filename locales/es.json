@@ -11,7 +11,8 @@
   "map": {
     "title": "Mapa de Embalses",
     "currentAlert": "Alerta Actual",
-    "currentLevel": "Nivel Actual"
+    "currentLevel": "Nivel Actual",
+    "servesMunicipalities": "Municipios que sirve"
   },
   "table": {
     "title": "Datos de Embalses",

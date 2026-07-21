@@ -1,5 +1,5 @@
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
-import { Fragment } from 'react'
+import { MapContainer, Marker, Popup, TileLayer, Circle, useMap } from 'react-leaflet'
+import { Fragment, useState, useEffect } from 'react'
 import { icon } from 'leaflet'
 import Link from 'next/link'
 import 'leaflet/dist/leaflet.css'
@@ -55,7 +55,61 @@ const greyIcon = icon({
   ...iconDefaults
 })
 
-const PopupMarker = ({ embalse }) => {
+function MunicipalityHighlight({ selectedEmbalse, municipios }) {
+  const map = useMap()
+  
+  useEffect(() => {
+    if (selectedEmbalse && municipios) {
+      const matchingMunicipios = municipios.features.filter(f => 
+        selectedEmbalse.municipalities.includes(f.properties.NAME)
+      )
+      
+      if (matchingMunicipios.length > 0) {
+        const bounds = []
+        matchingMunicipios.forEach(m => {
+          if (m.geometry.type === 'Point') {
+            bounds.push(m.geometry.coordinates)
+          }
+        })
+        
+        if (bounds.length > 0) {
+          map.fitBounds(bounds, { padding: [50, 50], maxZoom: 11 })
+        }
+      }
+    }
+  }, [selectedEmbalse, municipios, map])
+  
+  if (!selectedEmbalse || !municipios) return null
+  
+  const matchingMunicipios = municipios.features.filter(f => 
+    selectedEmbalse.municipalities.includes(f.properties.NAME)
+  )
+  
+  return (
+    <Fragment>
+      {matchingMunicipios.map((m, i) => {
+        if (m.geometry.type === 'Point') {
+          return (
+            <Circle
+              key={i}
+              center={[m.geometry.coordinates[1], m.geometry.coordinates[0]]}
+              radius={3000}
+              pathOptions={{
+                color: '#3388ff',
+                fillColor: '#3388ff',
+                fillOpacity: 0.3,
+                weight: 2
+              }}
+            />
+          )
+        }
+        return null
+      })}
+    </Fragment>
+  )
+}
+
+const PopupMarker = ({ embalse, onSelect }) => {
   const { t } = useLanguage()
   let myIcon
 
@@ -83,33 +137,55 @@ const PopupMarker = ({ embalse }) => {
   }
 
   return (
-    <Marker position={embalse.geoLocation} icon={myIcon}>
+    <Marker 
+      position={embalse.geoLocation} 
+      icon={myIcon}
+      eventHandlers={{
+        click: () => onSelect(embalse)
+      }}
+    >
       <Popup>
         <Link href={`/embalse?id=${embalse.id}`}>
           {embalse.commonName}
         </Link>
         <p>{t('map.currentAlert')}: {t(`alerts.${embalse.currentAlert}`)}
           <br />{t('map.currentLevel')}: {embalse.values[0].value} m</p>
+        <p><strong>{t('map.servesMunicipalities')}:</strong><br />
+          {embalse.municipalities.join(', ')}
+        </p>
       </Popup>
     </Marker>
   )
 }
 
-const MarkersList = ({ markers }) => {
+const MarkersList = ({ markers, onSelect }) => {
   const items = markers.map(marker => (
-    <PopupMarker key={marker.id} embalse={marker} />
+    <PopupMarker key={marker.id} embalse={marker} onSelect={onSelect} />
   ))
   return <Fragment>{items}</Fragment>
 }
 
-const EmbalsesMap = ({ embalses }) => (
-  <MapContainer center={position} zoom={state.zoom} style={{ height: '400px', width: '100%' }}>
-    <TileLayer
-      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
-      />
-    <MarkersList markers={embalses} />
-  </MapContainer>
-)
+const EmbalsesMap = ({ embalses }) => {
+  const [selectedEmbalse, setSelectedEmbalse] = useState(null)
+  const [municipios, setMunicipios] = useState(null)
+
+  useEffect(() => {
+    fetch('/data/municipios.json')
+      .then(res => res.json())
+      .then(data => setMunicipios(data))
+      .catch(err => console.error('Failed to load municipios:', err))
+  }, [])
+
+  return (
+    <MapContainer center={position} zoom={state.zoom} style={{ height: '400px', width: '100%' }}>
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
+        />
+      <MarkersList markers={embalses} onSelect={setSelectedEmbalse} />
+      <MunicipalityHighlight selectedEmbalse={selectedEmbalse} municipios={municipios} />
+    </MapContainer>
+  )
+}
 
 export default EmbalsesMap

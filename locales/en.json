@@ -11,7 +11,8 @@
   "map": {
     "title": "Reservoir Map",
     "currentAlert": "Current Alert",
-    "currentLevel": "Current Level"
+    "currentLevel": "Current Level",
+    "servesMunicipalities": "Serves Municipalities"
   },
   "table": {
     "title": "Reservoir Data",
