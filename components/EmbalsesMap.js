@@ -177,7 +177,7 @@ const EmbalsesMap = ({ embalses }) => {
   }, [])
 
   return (
-    <MapContainer center={position} zoom={state.zoom} style={{ height: '400px', width: '100%' }}>
+    <MapContainer center={position} zoom={state.zoom} style={{ height: '100%', width: '100%' }}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
