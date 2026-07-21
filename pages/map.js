@@ -1,25 +1,20 @@
-import Head from 'next/head'
+import Layout from '../components/MyLayout.js'
 import EmbalsesApi from '../components/EmbalsesApi.js'
 import dynamic from 'next/dynamic'
+import { useLanguage } from '../context/LanguageContext'
 
 const EmbalsesMap = dynamic(() => import('../components/EmbalsesMap.js'), {ssr: false})
 
-const MapPage = (props) => (
-  <>
-    <Head>
-      <style>{`
-        html, body, #__next {
-          margin: 0;
-          padding: 0;
-          height: 100%;
-        }
-      `}</style>
-    </Head>
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+const MapPage = (props) => {
+  const { t } = useLanguage()
+
+  return (
+    <Layout>
+      <h1>{t('map.title')}</h1>
       <EmbalsesMap embalses={props.embalses} />
-    </div>
-  </>
-)
+    </Layout>
+  )
+}
 
 MapPage.getInitialProps = async function () {
   const myEmbalses = new EmbalsesApi()
