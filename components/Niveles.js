@@ -31,8 +31,12 @@ class Niveles extends Component {
     const data = {
       labels: embalses.map(embalse => embalse.commonName),
       datasets: [{
-        label: 'Nivel Actual',
-        data: embalses.map(embalse => parseFloat(embalse.values[0].value)),
+        label: 'Nivel Actual (%)',
+        data: embalses.map(embalse => {
+          const currentValue = parseFloat(embalse.values[0].value)
+          const desbordeLevel = embalse.alertLevels.desborde
+          return Math.round((currentValue / desbordeLevel) * 100)
+        }),
         backgroundColor: embalses.map(embalse => this.getColor(embalse.currentAlert, 0.6)),
         borderColor: embalses.map(embalse => this.getColor(embalse.currentAlert, 1)),
         borderWidth: 2
@@ -77,7 +81,7 @@ class Niveles extends Component {
           clamp: true,
           anchor: 'end',
           align: 'top',
-          formatter: (value) => value + ' m',
+          formatter: (value) => value + '%',
           font: {
             weight: 'bold'
           }
@@ -85,6 +89,11 @@ class Niveles extends Component {
         legend: { display: false },
         tooltip: {
           callbacks: {
+            label: (context) => {
+              const embalse = embalses[context.dataIndex]
+              const currentValue = parseFloat(embalse.values[0].value)
+              return `${currentValue} m (${context.raw}% de desborde)`
+            },
             afterLabel: (context) => {
               const embalse = embalses[context.dataIndex]
               return `Alerta: ${embalse.currentAlert}`
@@ -95,9 +104,13 @@ class Niveles extends Component {
       scales: {
         y: {
           beginAtZero: true,
+          max: 100,
           title: {
             display: true,
-            text: 'Nivel (metros)'
+            text: '% de Nivel de Desborde'
+          },
+          ticks: {
+            callback: (value) => value + '%'
           }
         }
       }

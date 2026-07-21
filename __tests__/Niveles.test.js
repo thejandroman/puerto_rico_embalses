@@ -57,24 +57,16 @@ describe('Niveles', () => {
     expect(data.labels).toEqual(['Carraizo', 'La Plata'])
   })
 
-  it('creates a single dataset with all values', () => {
+  it('calculates percentage of desborde level', () => {
     render(<Niveles embalses={mockEmbalses} />)
     
     const chart = screen.getByTestId('bar-chart')
     const data = JSON.parse(chart.dataset.chartData)
     
-    expect(data.datasets).toHaveLength(1)
-    expect(data.datasets[0].label).toBe('Nivel Actual')
-  })
-
-  it('includes current values in dataset data', () => {
-    render(<Niveles embalses={mockEmbalses} />)
-    
-    const chart = screen.getByTestId('bar-chart')
-    const data = JSON.parse(chart.dataset.chartData)
-    
-    expect(data.datasets[0].data).toContain(38.5)
-    expect(data.datasets[0].data).toContain(48.2)
+    // Carraizo: 38.5 / 40.8 * 100 = 94%
+    // La Plata: 48.2 / 51.3 * 100 = 94%
+    expect(data.datasets[0].data[0]).toBe(94)
+    expect(data.datasets[0].data[1]).toBe(94)
   })
 
   it('colors bars based on alert level', () => {
@@ -95,6 +87,15 @@ describe('Niveles', () => {
     const options = JSON.parse(chart.dataset.chartOptions)
     
     expect(options.plugins.legend.display).toBe(false)
+  })
+
+  it('sets y-axis max to 100', () => {
+    render(<Niveles embalses={mockEmbalses} />)
+    
+    const chart = screen.getByTestId('bar-chart')
+    const options = JSON.parse(chart.dataset.chartOptions)
+    
+    expect(options.scales.y.max).toBe(100)
   })
 
   it('starts y-axis at zero', () => {
