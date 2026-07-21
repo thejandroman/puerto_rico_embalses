@@ -29,28 +29,19 @@ class Niveles extends Component {
 
   processData (embalses) {
     const data = {
-      labels: embalses.map(embalse => { return embalse.commonName }),
-      datasets: embalses.map(embalse => {
-        const index = embalses.findIndex(emb => emb.id === embalse.id)
-        const data = new Array(index).fill(null)
-        data.push(embalses[index].values[0].value)
-        return {
-          label: embalse.currentAlert,
-          yAxisID: embalse.id,
-          data: data,
-          ...this.processColors(embalse.currentAlert)
-        }
-      })
+      labels: embalses.map(embalse => embalse.commonName),
+      datasets: [{
+        label: 'Nivel Actual',
+        data: embalses.map(embalse => parseFloat(embalse.values[0].value)),
+        backgroundColor: embalses.map(embalse => this.getColor(embalse.currentAlert, 0.6)),
+        borderColor: embalses.map(embalse => this.getColor(embalse.currentAlert, 1)),
+        borderWidth: 2
+      }]
     }
     return data
   }
 
-  processColors (currentAlert) {
-    const backgroundAlpha = 0.2
-    const borderAlpha = 1
-    const hoverBackgroundAlpha = 0.4
-    const hoverBorderAlpha = 1
-
+  getColor (currentAlert, alpha) {
     let rgb = '236,236,236' // gray default
 
     switch (currentAlert) {
@@ -74,27 +65,42 @@ class Niveles extends Component {
       break
     }
 
-    const colors = {
-      backgroundColor: `rgba(${rgb},${backgroundAlpha})`,
-      borderColor: `rgba(${rgb},${borderAlpha})`,
-      hoverBackgroundColor: `rgba(${rgb},${hoverBackgroundAlpha})`,
-      hoverBorderColor: `rgba(${rgb},${hoverBorderAlpha})`
-    }
-
-    return colors
+    return `rgba(${rgb},${alpha})`
   }
 
-  processOptions (_embalses) {
+  processOptions (embalses) {
     return {
+      responsive: true,
+      maintainAspectRatio: true,
       plugins: {
         datalabels: {
           clamp: true,
-          anchor: 'start',
-          align: 'top'
+          anchor: 'end',
+          align: 'top',
+          formatter: (value) => value + ' m',
+          font: {
+            weight: 'bold'
+          }
         },
-        legend: { display: false }
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            afterLabel: (context) => {
+              const embalse = embalses[context.dataIndex]
+              return `Alerta: ${embalse.currentAlert}`
+            }
+          }
+        }
       },
-      scales: {}
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Nivel (metros)'
+          }
+        }
+      }
     }
   }
 

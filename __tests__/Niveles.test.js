@@ -57,25 +57,14 @@ describe('Niveles', () => {
     expect(data.labels).toEqual(['Carraizo', 'La Plata'])
   })
 
-  it('creates datasets for each embalse', () => {
+  it('creates a single dataset with all values', () => {
     render(<Niveles embalses={mockEmbalses} />)
     
     const chart = screen.getByTestId('bar-chart')
     const data = JSON.parse(chart.dataset.chartData)
     
-    expect(data.datasets).toHaveLength(2)
-    expect(data.datasets[0].label).toBe('observacion')
-    expect(data.datasets[1].label).toBe('seguridad')
-  })
-
-  it('sets correct yAxisID for each dataset', () => {
-    render(<Niveles embalses={mockEmbalses} />)
-    
-    const chart = screen.getByTestId('bar-chart')
-    const data = JSON.parse(chart.dataset.chartData)
-    
-    expect(data.datasets[0].yAxisID).toBe(50059000)
-    expect(data.datasets[1].yAxisID).toBe(50045000)
+    expect(data.datasets).toHaveLength(1)
+    expect(data.datasets[0].label).toBe('Nivel Actual')
   })
 
   it('includes current values in dataset data', () => {
@@ -84,9 +73,19 @@ describe('Niveles', () => {
     const chart = screen.getByTestId('bar-chart')
     const data = JSON.parse(chart.dataset.chartData)
     
-    // Data is sparse with nulls - value is at index matching embalse position
-    expect(data.datasets[0].data).toContain('38.5')
-    expect(data.datasets[1].data).toContain('48.2')
+    expect(data.datasets[0].data).toContain(38.5)
+    expect(data.datasets[0].data).toContain(48.2)
+  })
+
+  it('colors bars based on alert level', () => {
+    render(<Niveles embalses={mockEmbalses} />)
+    
+    const chart = screen.getByTestId('bar-chart')
+    const data = JSON.parse(chart.dataset.chartData)
+    
+    // observacion = blue, seguridad = green
+    expect(data.datasets[0].backgroundColor[0]).toContain('66,105,225')
+    expect(data.datasets[0].backgroundColor[1]).toContain('32,139,34')
   })
 
   it('hides legend in options', () => {
@@ -96,5 +95,14 @@ describe('Niveles', () => {
     const options = JSON.parse(chart.dataset.chartOptions)
     
     expect(options.plugins.legend.display).toBe(false)
+  })
+
+  it('starts y-axis at zero', () => {
+    render(<Niveles embalses={mockEmbalses} />)
+    
+    const chart = screen.getByTestId('bar-chart')
+    const options = JSON.parse(chart.dataset.chartOptions)
+    
+    expect(options.scales.y.beginAtZero).toBe(true)
   })
 })
