@@ -34,8 +34,11 @@ class Niveles extends Component {
         label: 'Nivel Actual (%)',
         data: embalses.map(embalse => {
           const currentValue = parseFloat(embalse.values[0].value)
+          const controlLevel = embalse.alertLevels.control
           const desbordeLevel = embalse.alertLevels.desborde
-          return Math.round((currentValue / desbordeLevel) * 100)
+          const range = desbordeLevel - controlLevel
+          const percentage = ((currentValue - controlLevel) / range) * 100
+          return Math.round(Math.max(0, Math.min(100, percentage)))
         }),
         backgroundColor: embalses.map(embalse => this.getColor(embalse.currentAlert, 0.6)),
         borderColor: embalses.map(embalse => this.getColor(embalse.currentAlert, 1)),

@@ -57,16 +57,16 @@ describe('Niveles', () => {
     expect(data.labels).toEqual(['Carraizo', 'La Plata'])
   })
 
-  it('calculates percentage of desborde level', () => {
+  it('calculates percentage between control and desborde levels', () => {
     render(<Niveles embalses={mockEmbalses} />)
     
     const chart = screen.getByTestId('bar-chart')
     const data = JSON.parse(chart.dataset.chartData)
     
-    // Carraizo: 38.5 / 40.8 * 100 = 94%
-    // La Plata: 48.2 / 51.3 * 100 = 94%
-    expect(data.datasets[0].data[0]).toBe(94)
-    expect(data.datasets[0].data[1]).toBe(94)
+    // Carraizo: (38.5 - 31.5) / (40.8 - 31.5) * 100 = 7 / 9.3 * 100 = 75%
+    // La Plata: (48.2 - 32) / (51.3 - 32) * 100 = 16.2 / 19.3 * 100 = 84%
+    expect(data.datasets[0].data[0]).toBe(75)
+    expect(data.datasets[0].data[1]).toBe(84)
   })
 
   it('colors bars based on alert level', () => {
