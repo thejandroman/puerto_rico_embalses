@@ -1,13 +1,18 @@
 import Layout from '../components/MyLayout.js'
 import EmbalsesApi from '../components/EmbalsesApi.js'
 import EmbalsesTable from '../components/EmbalsesTable.js'
+import { useLanguage } from '../context/LanguageContext'
 
-const TablePage = (props) => (
-  <Layout>
-    <h1>Reservoir Data</h1>
-    <EmbalsesTable embalses={props.embalses} />
-  </Layout>
-)
+const TablePage = (props) => {
+  const { t } = useLanguage()
+
+  return (
+    <Layout>
+      <h1>{t('table.title')}</h1>
+      <EmbalsesTable embalses={props.embalses} />
+    </Layout>
+  )
+}
 
 TablePage.getInitialProps = async function () {
   const myEmbalses = new EmbalsesApi()

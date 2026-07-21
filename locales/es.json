@@ -1,0 +1,47 @@
+{
+  "common": {
+    "home": "Inicio",
+    "map": "Mapa",
+    "table": "Tabla",
+    "about": "Acerca de"
+  },
+  "home": {
+    "title": "Niveles de Embalses de Puerto Rico"
+  },
+  "map": {
+    "title": "Mapa de Embalses",
+    "currentAlert": "Alerta Actual",
+    "currentLevel": "Nivel Actual"
+  },
+  "table": {
+    "title": "Datos de Embalses",
+    "embalse": "Embalse",
+    "lastUpdated": "Última Actualización",
+    "currentAlert": "Alerta Actual",
+    "currentLevel": "Nivel Actual (metros)"
+  },
+  "about": {
+    "title": "Acerca de",
+    "description": "Un panel de control en tiempo real para monitorear los niveles de agua de los embalses en Puerto Rico, utilizando datos de la API de Servicios de Agua de USGS.",
+    "colorLegend": "Leyenda de Colores",
+    "colorLegendDescription": "Los colores en el mapa y la tabla indican el nivel de alerta actual de cada embalse:",
+    "color": "Color",
+    "alertLevel": "Nivel de Alerta"
+  },
+  "colors": {
+    "purple": "Morado",
+    "green": "Verde",
+    "blue": "Azul",
+    "yellow": "Amarillo",
+    "orange": "Naranja",
+    "red": "Rojo"
+  },
+  "alerts": {
+    "desborde": "Desborde",
+    "seguridad": "Seguridad",
+    "observacion": "Observación",
+    "ajustesOperacionales": "Ajustes Operacionales",
+    "control": "Control",
+    "fueraDeServicio": "Fuera de Servicio"
+  }
+}

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import EmbalsesMap from '../components/EmbalsesMap'
+import { LanguageProvider } from '../context/LanguageContext'
 
 // Mock react-leaflet
 jest.mock('react-leaflet', () => ({
@@ -29,6 +30,14 @@ jest.mock('next/link', () => {
   }
 })
 
+const renderWithLanguage = (ui) => {
+  return render(
+    <LanguageProvider>
+      {ui}
+    </LanguageProvider>
+  )
+}
+
 const mockEmbalses = [
   {
     id: 50059000,
@@ -48,13 +57,13 @@ const mockEmbalses = [
 
 describe('EmbalsesMap', () => {
   it('renders the map container', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     expect(screen.getByTestId('map-container')).toBeInTheDocument()
   })
 
   it('renders with correct center position', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     const map = screen.getByTestId('map-container')
     const center = JSON.parse(map.dataset.center)
@@ -63,27 +72,27 @@ describe('EmbalsesMap', () => {
   })
 
   it('renders with zoom level 9', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     const map = screen.getByTestId('map-container')
     expect(map.dataset.zoom).toBe('9')
   })
 
   it('renders tile layer', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     expect(screen.getByTestId('tile-layer')).toBeInTheDocument()
   })
 
   it('renders markers for each embalse', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     const markers = screen.getAllByTestId('marker')
     expect(markers).toHaveLength(2)
   })
 
   it('renders marker positions correctly', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     const markers = screen.getAllByTestId('marker')
     const firstPosition = JSON.parse(markers[0].dataset.position)
@@ -94,28 +103,28 @@ describe('EmbalsesMap', () => {
   })
 
   it('renders popup with embalse name', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     expect(screen.getByText('Carraizo')).toBeInTheDocument()
     expect(screen.getByText('La Plata')).toBeInTheDocument()
   })
 
-  it('renders popup with current level', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+  it('renders popup with translated alert and level', () => {
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
-    expect(screen.getByText(/38.5 meters/)).toBeInTheDocument()
-    expect(screen.getByText(/48.2 meters/)).toBeInTheDocument()
+    expect(screen.getByText(/Observación/)).toBeInTheDocument()
+    expect(screen.getByText(/38.5 m/)).toBeInTheDocument()
   })
 
   it('links popup to embalse detail page', () => {
-    render(<EmbalsesMap embalses={mockEmbalses} />)
+    renderWithLanguage(<EmbalsesMap embalses={mockEmbalses} />)
     
     const carraizoLink = screen.getByText('Carraizo')
     expect(carraizoLink).toHaveAttribute('href', '/embalse?id=50059000')
   })
 
   it('renders empty when no embalses', () => {
-    render(<EmbalsesMap embalses={[]} />)
+    renderWithLanguage(<EmbalsesMap embalses={[]} />)
     
     const markers = screen.queryAllByTestId('marker')
     expect(markers).toHaveLength(0)

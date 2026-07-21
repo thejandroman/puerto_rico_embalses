@@ -1,0 +1,47 @@
+{
+  "common": {
+    "home": "Home",
+    "map": "Map",
+    "table": "Table",
+    "about": "About"
+  },
+  "home": {
+    "title": "Puerto Rico Reservoir Levels"
+  },
+  "map": {
+    "title": "Reservoir Map",
+    "currentAlert": "Current Alert",
+    "currentLevel": "Current Level"
+  },
+  "table": {
+    "title": "Reservoir Data",
+    "embalse": "Reservoir",
+    "lastUpdated": "Last Updated",
+    "currentAlert": "Current Alert",
+    "currentLevel": "Current Level (meters)"
+  },
+  "about": {
+    "title": "About",
+    "description": "A real-time dashboard for monitoring water reservoir levels across Puerto Rico, using data from the USGS Water Services API.",
+    "colorLegend": "Color Legend",
+    "colorLegendDescription": "Colors on the map and table indicate the current alert level of each reservoir:",
+    "color": "Color",
+    "alertLevel": "Alert Level"
+  },
+  "colors": {
+    "purple": "Purple",
+    "green": "Green",
+    "blue": "Blue",
+    "yellow": "Yellow",
+    "orange": "Orange",
+    "red": "Red"
+  },
+  "alerts": {
+    "desborde": "Overflow",
+    "seguridad": "Safety",
+    "observacion": "Observation",
+    "ajustesOperacionales": "Operational Adjustments",
+    "control": "Control",
+    "fueraDeServicio": "Out of Service"
+  }
+}

@@ -1,40 +1,43 @@
 import Link from 'next/link'
+import { useLanguage } from '../context/LanguageContext'
 
-function deCamelCase(camelCase) {
-  return camelCase
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/^./, function (str) { return str.toUpperCase() })
+const EmbalseRow = ({ embalse }) => {
+  const { t } = useLanguage()
+  
+  return (
+    <tr>
+      <td>
+        <Link href={`/embalse?id=${embalse.id}`}>
+          {embalse.commonName}
+        </Link>
+      </td>
+      <td>{new Date(embalse.values[0].dateTime).toString()}</td>
+      <td>{t(`alerts.${embalse.currentAlert}`)}</td>
+      <td>{embalse.values[0].value}</td>
+    </tr>
+  )
 }
 
-const EmbalseRow = props => (
-  <tr>
-    <td>
-      <Link href={`/embalse?id=${props.embalse.id}`}>
-        {props.embalse.commonName}
-      </Link>
-    </td>
-    <td>{new Date(props.embalse.values[0].dateTime).toString()}</td>
-    <td>{deCamelCase(props.embalse.currentAlert)}</td>
-    <td>{props.embalse.values[0].value}</td>
-  </tr>
-)
+const EmbalsesTable = ({ embalses }) => {
+  const { t } = useLanguage()
 
-const EmbalsesTable = props => (
-  <table className='table table-striped'>
-    <thead>
-      <tr>
-        <th scope='col'>Embalse</th>
-        <th scope='col'>Last Updated</th>
-        <th scope='col'>Current Alert</th>
-        <th scope='col'>Current Level (meters)</th>
-      </tr>
-    </thead>
-    <tbody>
-      {props.embalses.map(embalse => (
-        <EmbalseRow embalse={embalse} key={embalse.id} />
-      ))}
-    </tbody>
-  </table>
-)
+  return (
+    <table className='table table-striped'>
+      <thead>
+        <tr>
+          <th scope='col'>{t('table.embalse')}</th>
+          <th scope='col'>{t('table.lastUpdated')}</th>
+          <th scope='col'>{t('table.currentAlert')}</th>
+          <th scope='col'>{t('table.currentLevel')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {embalses.map(embalse => (
+          <EmbalseRow embalse={embalse} key={embalse.id} />
+        ))}
+      </tbody>
+    </table>
+  )
+}
 
 export default EmbalsesTable

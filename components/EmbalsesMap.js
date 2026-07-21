@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { icon } from 'leaflet'
 import Link from 'next/link'
 import 'leaflet/dist/leaflet.css'
+import { useLanguage } from '../context/LanguageContext'
 
 const state = {
   lat: 18.2256014,
@@ -54,10 +55,11 @@ const greyIcon = icon({
   ...iconDefaults
 })
 
-const PopupMarker = (props) => {
+const PopupMarker = ({ embalse }) => {
+  const { t } = useLanguage()
   let myIcon
 
-  switch (props.embalse.currentAlert) {
+  switch (embalse.currentAlert) {
   case 'desborde':
     myIcon = violetIcon
     break
@@ -81,32 +83,32 @@ const PopupMarker = (props) => {
   }
 
   return (
-    <Marker position={props.embalse.geoLocation} icon={myIcon}>
+    <Marker position={embalse.geoLocation} icon={myIcon}>
       <Popup>
-        <Link href={`/embalse?id=${props.embalse.id}`}>
-          {props.embalse.commonName}
+        <Link href={`/embalse?id=${embalse.id}`}>
+          {embalse.commonName}
         </Link>
-        <p>Current Alert: {props.embalse.currentAlert}
-          <br />Current Level: {props.embalse.values[0].value} meters</p>
+        <p>{t('map.currentAlert')}: {t(`alerts.${embalse.currentAlert}`)}
+          <br />{t('map.currentLevel')}: {embalse.values[0].value} m</p>
       </Popup>
     </Marker>
   )
 }
 
-const MarkersList = (props) => {
-  const items = props.markers.map(marker => (
+const MarkersList = ({ markers }) => {
+  const items = markers.map(marker => (
     <PopupMarker key={marker.id} embalse={marker} />
   ))
   return <Fragment>{items}</Fragment>
 }
 
-const EmbalsesMap = (props) => (
+const EmbalsesMap = ({ embalses }) => (
   <MapContainer center={position} zoom={state.zoom} style={{ height: '400px', width: '100%' }}>
     <TileLayer
       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
       />
-    <MarkersList markers={props.embalses} />
+    <MarkersList markers={embalses} />
   </MapContainer>
 )
 

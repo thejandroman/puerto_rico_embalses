@@ -1,15 +1,20 @@
 import Layout from '../components/MyLayout.js'
 import EmbalsesApi from '../components/EmbalsesApi.js'
 import dynamic from 'next/dynamic'
+import { useLanguage } from '../context/LanguageContext'
 
 const EmbalsesMap = dynamic(() => import('../components/EmbalsesMap.js'), {ssr: false})
 
-const MapPage = (props) => (
-  <Layout>
-    <h1>Reservoir Map</h1>
-    <EmbalsesMap embalses={props.embalses} />
-  </Layout>
-)
+const MapPage = (props) => {
+  const { t } = useLanguage()
+
+  return (
+    <Layout>
+      <h1>{t('map.title')}</h1>
+      <EmbalsesMap embalses={props.embalses} />
+    </Layout>
+  )
+}
 
 MapPage.getInitialProps = async function () {
   const myEmbalses = new EmbalsesApi()
