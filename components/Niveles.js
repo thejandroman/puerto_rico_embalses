@@ -79,6 +79,11 @@ class Niveles extends Component {
     return {
       responsive: true,
       maintainAspectRatio: true,
+      layout: {
+        padding: {
+          top: 20
+        }
+      },
       plugins: {
         datalabels: {
           clamp: true,
