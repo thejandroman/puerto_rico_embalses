@@ -11,7 +11,9 @@ const MapPage = (props) => {
   return (
     <Layout>
       <h1>{t('map.title')}</h1>
-      <EmbalsesMap embalses={props.embalses} />
+      <div style={{ height: 'calc(100vh - 200px)', minHeight: '400px' }}>
+        <EmbalsesMap embalses={props.embalses} />
+      </div>
     </Layout>
   )
 }
